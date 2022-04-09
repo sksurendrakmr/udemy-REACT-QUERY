@@ -48,3 +48,27 @@ passing useQuery errors to Chakra UI "toast" component.
   passes error parameter to callback.
 
 - will use toast.
+
+======
+No useError analogy for useIsFetching
+
+- need more than integer; unclear how to implement
+
+Instead, set default onError handler for queryClient
+
+By default, queryClient takes default either queries or mutations.
+
+{
+queries : {useQuery options},
+mutations: {useMutation options}
+}
+
+Alternative to onError: Error Boundary in react.
+To handle react query errors with ErrorBoundary, we can use useErrorBoundary for useQuery
+
+we can either add it in optionto useQuery/ useMutation
+or in defaultOptions when creating QueryClient.
+
+If set to true than it propagate errors to the nearest error boundary
+
+https://react-query.tanstack.com/reference/useQuery
