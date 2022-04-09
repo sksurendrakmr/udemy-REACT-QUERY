@@ -1,11 +1,18 @@
-import { Spinner, Text } from '@chakra-ui/react';
-import { ReactElement } from 'react';
+import { Spinner, Text } from "@chakra-ui/react";
+import { ReactElement } from "react";
+import { useIsFetching } from "react-query";
+
+/**
+ * useIsFetching will return an Integer, representing the number
+ * of query calls that are currently in the fetching state.
+ *
+ * so if useIsFetching > 0 ? 'fetching state (true)' : false
+ */
 
 export function Loading(): ReactElement {
-  // will use React Query `useIsFetching` to determine whether or not to display
-  const isFetching = false; // for now, just don't display
+  const isFetching = useIsFetching();
 
-  const display = isFetching ? 'inherit' : 'none';
+  const display = isFetching ? "inherit" : "none";
 
   return (
     <Spinner

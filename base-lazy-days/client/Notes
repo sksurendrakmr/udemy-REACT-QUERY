@@ -15,3 +15,25 @@
   --> abstracts implementation from display layer
   ==> update hook if you change implementation
   ==> no need to update components
+
+We will going to update our app to use a centralized loading indicator instead
+of having an individual loading indicator for each component.
+
+For this, we will use a react query hook called useIsFetching.
+
+In smaller apps
+
+- used isFetching from useQuery return object
+- Remainder: isLoading is isFetching plus no cached data.
+
+In larger app
+
+- Loading spinner whenever any query isFetching
+- We are going to have a centralised loading spinner that's just
+  going to be a part of our app component and will turn it on if
+  any query is fetching and will turn it off if there aren't any queries.
+
+- useIsFetching will tells us whether there are any queries that are currently
+  fetching.
+
+- Thus, no need for isFetching on every custom hook / useQuery call.
