@@ -1,0 +1,7 @@
+# React Query in Larger App
+
+- Centralizing fetching indicator / error handling
+- refetching data
+- integrating auth
+- dependent queries
+- testing
