@@ -37,3 +37,14 @@ In larger app
   fetching.
 
 - Thus, no need for isFetching on every custom hook / useQuery call.
+
+===============
+passing useQuery errors to Chakra UI "toast" component.
+
+- onError callback to useQuery
+- Instead of destructuring isError, error from useQuery return
+
+- onError callback runs if query function throws an error and react query
+  passes error parameter to callback.
+
+- will use toast.
