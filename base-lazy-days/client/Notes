@@ -103,3 +103,9 @@ need a stable function (useCallback for anonymous function)
 
 setQueryData --> setting data in the cache directly
 removeQueries --> removing queries from the cache.
+
+==========
+
+Why not use removeQueries for user data??
+
+- setQueryData invokes onSuccess (removeQueries does not)

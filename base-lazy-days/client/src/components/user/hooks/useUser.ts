@@ -71,6 +71,7 @@ export function useUser(): UseUser {
   // meant to be called from useAuth
   function clearUser() {
     queryClient.setQueryData(queryKeys.user,null);
+    queryClient.removeQueries('user-appointments'); //when user signed out, the userAppointments query data will no longer be available.
   }
 
   return { user, updateUser, clearUser };
