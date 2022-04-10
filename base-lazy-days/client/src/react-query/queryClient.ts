@@ -1,4 +1,4 @@
-import {QueryClient} from 'react-query'
+import { QueryClient} from 'react-query'
 import { createStandaloneToast } from '@chakra-ui/react';
 import { theme } from '../theme';
 
@@ -17,8 +17,8 @@ function queryErrorHandler(error: unknown): void {
 
 // to satisfy typescript until this file has uncommented contents
 
-
-export const queryClient = new QueryClient({defaultOptions:{
+export function generateQueryClient():QueryClient {
+  return new QueryClient({defaultOptions:{
     queries:{
         onError:queryErrorHandler,
         staleTime:600000,
@@ -27,4 +27,8 @@ export const queryClient = new QueryClient({defaultOptions:{
         refetchOnReconnect:false,
         refetchOnWindowFocus:false
     }
-}});
+  }
+})
+}
+
+export const queryClient = generateQueryClient();
