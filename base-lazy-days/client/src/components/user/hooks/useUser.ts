@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { useQuery } from 'react-query';
 
 import type { User } from '../../../../../shared/types';
 import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
@@ -9,16 +10,23 @@ import {
   setStoredUser,
 } from '../../../user-storage';
 
-// async function getUser(user: User | null): Promise<User | null> {
-//   if (!user) return null;
-//   const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
-//     `/user/${user.id}`,
-//     {
-//       headers: getJWTHeader(user),
-//     },
-//   );
-//   return data.user;
-// }
+async function getUser(user: User | null): Promise<User | null> {
+  if (!user) return null;
+  const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
+    `/user/${user.id}`,
+    {
+      headers: getJWTHeader(user),
+    },
+  );
+  return data.user;
+}
+
+
+/**
+ * useUser responsibility to maintain user's state both in localStorage
+ * in query cache.
+ */
+
 
 interface UseUser {
   user: User | null;
@@ -27,8 +35,7 @@ interface UseUser {
 }
 
 export function useUser(): UseUser {
-  // TODO: call useQuery to update user data from server
-  const user = null;
+  const {data:user} = useQuery(queryKeys.user,()=>getUser(user));
 
   // meant to be called from useAuth
   function updateUser(newUser: User): void {

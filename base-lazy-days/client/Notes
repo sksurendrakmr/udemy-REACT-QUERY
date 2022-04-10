@@ -98,3 +98,8 @@ Under the hood, react query do
 - only runs if data changes and the function (select fn) has changed
 
 need a stable function (useCallback for anonymous function)
+
+=========================
+
+setQueryData --> setting data in the cache directly
+removeQueries --> removing queries from the cache.
