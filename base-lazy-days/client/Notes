@@ -72,3 +72,10 @@ or in defaultOptions when creating QueryClient.
 If set to true than it propagate errors to the nearest error boundary
 
 https://react-query.tanstack.com/reference/useQuery
+
+===================
+
+# Options for pre-populating data
+
+We want to pre-populate the data if we know what data user needs to see
+if there's no data yet in the cache.
