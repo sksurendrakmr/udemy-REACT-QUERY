@@ -37,6 +37,11 @@ interface UseUser {
 export function useUser(): UseUser {
   // const {data:user} = useQuery(queryKeys.user,()=>getUser(user)); //undefined
 
+
+  //we need to reinitialize the user data from localstorage when page reloaded
+  //Use InitialData value to useQuery
+
+
   //onSuccess runs after : 1. setQueryData 2. after query function return value
   //onSuccess callback have data as parameter which will be either the return value of queryFn or the value of setQueryData. 
   //since it get the data either from updateUser() or clearUser() so data type would be User | null
@@ -48,7 +53,8 @@ export function useUser(): UseUser {
       }else{
         setStoredUser(data)
       }
-    }
+    },
+    initialData:getStoredUser
   });
   const queryClient = new QueryClient();
 
