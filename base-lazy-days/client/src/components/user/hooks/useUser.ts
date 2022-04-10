@@ -36,7 +36,20 @@ interface UseUser {
 
 export function useUser(): UseUser {
   // const {data:user} = useQuery(queryKeys.user,()=>getUser(user)); //undefined
-  const {data:user} = useQuery(queryKeys.user,()=>getUser(user));
+
+  //onSuccess runs after : 1. setQueryData 2. after query function return value
+  //onSuccess callback have data as parameter which will be either the return value of queryFn or the value of setQueryData. 
+  //since it get the data either from updateUser() or clearUser() so data type would be User | null
+  const {data:user} = useQuery(queryKeys.user,()=>getUser(user),{
+    onSuccess:(data:User | null)=>{
+      //if user is null, data comes from clearUser() and we want to clear the localStorage
+      if(!data){
+        clearStoredUser();
+      }else{
+        setStoredUser(data)
+      }
+    }
+  });
   const queryClient = new QueryClient();
 
   //we want to be able to set the value in the query cache from useAuth hook.
