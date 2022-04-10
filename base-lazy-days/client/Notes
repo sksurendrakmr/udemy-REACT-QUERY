@@ -79,3 +79,22 @@ https://react-query.tanstack.com/reference/useQuery
 
 We want to pre-populate the data if we know what data user needs to see
 if there's no data yet in the cache.
+
+==============
+
+# Filtering with the select option
+
+===========
+
+Scenario here : Allow user to filter out any appointments that aren't available.
+
+Why is the select option the best way to do this??
+
+- React Query memo-izes to reduce unnecessary computation.
+
+Under the hood, react query do
+
+- triple equals comparison of select function
+- only runs if data changes and the function (select fn) has changed
+
+need a stable function (useCallback for anonymous function)
