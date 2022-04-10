@@ -32,10 +32,10 @@ export const renderWithQueryClient = (
   );
 };
 
-// // from https://tkdodo.eu/blog/testing-react-query#for-custom-hooks
-// export const createQueryClientWrapper = (): React.FC => {
-//   const queryClient = generateQueryClient();
-//   return ({ children }) => (
-//     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-//   );
-// };
+// from https://tkdodo.eu/blog/testing-react-query#for-custom-hooks
+export const createQueryClientWrapper = (): React.FC => {
+  const queryClient = generateQueryClient();
+  return ({ children }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+};
