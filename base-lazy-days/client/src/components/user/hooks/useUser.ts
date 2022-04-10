@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { useQuery } from 'react-query';
+import { QueryClient, useQuery } from 'react-query';
 
 import type { User } from '../../../../../shared/types';
 import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
@@ -35,16 +35,23 @@ interface UseUser {
 }
 
 export function useUser(): UseUser {
+  // const {data:user} = useQuery(queryKeys.user,()=>getUser(user)); //undefined
   const {data:user} = useQuery(queryKeys.user,()=>getUser(user));
+  const queryClient = new QueryClient();
 
+  //we want to be able to set the value in the query cache from useAuth hook.
+  //so we will have valid user when we run above useQuery function
   // meant to be called from useAuth
+
+  //Here, React query acting as a provider for auth
+  //In order to set the value in query cache, we are going to use the queryClient method called setQueryData.
   function updateUser(newUser: User): void {
-    // TODO: update the user in the query cache
+    queryClient.setQueryData(queryKeys.user,newUser);
   }
 
   // meant to be called from useAuth
   function clearUser() {
-    // TODO: reset user to null in query cache
+    queryClient.setQueryData(queryKeys.user,null);
   }
 
   return { user, updateUser, clearUser };
