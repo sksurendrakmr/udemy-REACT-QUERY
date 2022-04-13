@@ -26,6 +26,9 @@ export function generateQueryClient():QueryClient {
         refetchOnMount:false,
         refetchOnReconnect:false,
         refetchOnWindowFocus:false
+    },
+    mutations:{
+      onError:queryErrorHandler
     }
   }
 })

@@ -109,3 +109,30 @@ removeQueries --> removing queries from the cache.
 Why not use removeQueries for user data??
 
 - setQueryData invokes onSuccess (removeQueries does not)
+
+===============
+Mutations
+=============
+With mutations, we are going to update the server data.
+Because the server data is going to update, we are going to
+look at :-
+
+1. Invalidate query on mutation so data is purged from the cache
+2. Update cache with data returned from the server after mutation.
+   (We will also updaate the cache in circumstances where when we send
+   the mutation, we get new data back from the server)
+3. Optimistic update (assume mutation will succeed, rollback if not)
+
+# Global Fetching / Error
+
+We will setup a global fetching indicator and error, the same way we did
+for queries.
+
+For Errors:
+set onError callback in mutations property of query client defaultOptions.
+
+For Loading indicator:
+--> useIsMutating is analogous to useIsFetching.But it tells us whether any
+of our mutation calls are currently unresolved.
+
+--> Update Loading component to show on isMutating.
