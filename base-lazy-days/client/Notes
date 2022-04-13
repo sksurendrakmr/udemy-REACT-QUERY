@@ -203,3 +203,17 @@ invalidateQueries effects:
   in our mutation, we have onSuccessHandler that invalidates the relevant queries.
   and that is going to trigger a refetch of the data so that the data updates for the
   user without having to refresh the page.
+
+  # Query Key Prefixes
+
+  - Goal: invalidate all queries related to appointments on mutation.
+    and we can do that with query key prefix.
+
+  - invalidateQueries takes a query key prefix.
+    --> invalidateQueries actually takes a prefix and not an exact key. so by setting up
+    any queries that are related to each other with the same query prefix, we can invalidate
+    all of them at once.
+
+  - if we want to make it exact, there is an option. (can make it exact with { exact: true} option)
+
+  - Other queryClient methods take prefix too (like removeQueries)
