@@ -136,3 +136,21 @@ For Loading indicator:
 of our mutation calls are currently unresolved.
 
 --> Update Loading component to show on isMutating.
+
+===========
+useMutation
+=========
+
+In useMutation,
+
+- there is no cache data (as its one time thing)
+- by default, no retries (but configurable)
+- no refetch (as no data associated with it)
+- no isLoading vs isFetching distinction
+
+- returns mutate function which actually runs mutation and that we would actually use to run the mutation
+
+- There's also an onMutate callback which we are going to be using for
+  optimistic queries.
+  We are going to be using that to store what the state was before so that
+  we can restore it if mutation fails
