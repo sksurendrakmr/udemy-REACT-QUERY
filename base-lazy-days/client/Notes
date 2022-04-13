@@ -154,3 +154,19 @@ In useMutation,
   optimistic queries.
   We are going to be using that to store what the state was before so that
   we can restore it if mutation fails
+
+  =======
+  Typescript: Returnign mutate function
+  =======
+
+  Type for returning mutate function from custom hook.
+
+  UseMutateFunction<TData=unknown, TError=unknown, TVariables=void, TContext=unknown>
+
+  TData -> Data type returned by mutation function itself. Example: In our case, mutation function doesn't return any data so we going to set that to void.
+
+  TError -> Error type thrown by mutation function. Example:Error
+
+  TVariables -> mutate function variables type. Example mutate
+
+  TContext -> Context type set in onMutate function for optimistic update rollback. Example:Appointment
