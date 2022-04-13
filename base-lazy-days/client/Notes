@@ -217,3 +217,13 @@ invalidateQueries effects:
   - if we want to make it exact, there is an option. (can make it exact with { exact: true} option)
 
   - Other queryClient methods take prefix too (like removeQueries)
+
+  ==========
+  Update Cache from Mutation Response
+  ==========
+
+  We are going to use the update of user data as a backdrop to see how we can update the cache
+  from the response the server sends when we send our mutation.
+
+  The onSuccess callback is going to take the response from the server and update the query cache
+  using that data.
