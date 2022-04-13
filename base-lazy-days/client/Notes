@@ -227,3 +227,80 @@ invalidateQueries effects:
 
   The onSuccess callback is going to take the response from the server and update the query cache
   using that data.
+
+==============
+Optimistic Updates
+==============
+
+- update cache before response from server.
+- we are "optimistic" that the mutation will work
+
+Advantages
+
+- cache gets updated quicker. we don't have to wait for the server to update the cache
+  and especially if multiple components are using the data.
+
+Disadvantages
+
+- It makes the code more complicated because what if our optimism was unfounded and the
+  server update fails.
+
+  In that case, we need to rollback to whatever the data was before the update which means we need to
+  actually store that data.
+
+  - useMutation has an onMutate callback.
+  - returns context value that's handed to onError for callback.
+  - context value contains previous cache data.
+
+    Explaination
+    onMutate callback returns a context value and the onError handler will recieve that context value
+    as an argument.
+
+    Thus, if there's an error, the onError handler will be called and it will get that conext value and
+    it will be able to restore the cache value to what it was before.
+
+    so in this case, context means what was the context before we applied the optimistic update
+
+    # onMutate() can also cancel refetches-in-progress.
+
+    - onMutate() can also cancel any refetches that might be in progress for this particular query
+      that containing the data that we are updating the cache for.
+      Since we don't want to overwrite optimistic update with old data from server after refetch.
+      So we want to make sure we cancel those queries so that they don't overwrite our cache with old
+      data after the optimistic update.
+
+# Flows
+
+User triggers update with mutate
+then
+
+-send update to server
+-onMutate callback will run and it will :-
+
+- cancel queries in progress
+- optimistically Update query cache
+- save previous cache value
+
+if update to the server succussful then we need to invalidate the query to make sure that
+we get fresh data from the server.
+
+If it was not successful then onError callback will run and that will get passed the context that was
+returned from onMutate.
+
+We will write onError callback to use that context to roll back the cache to whatever was before we optimistically updated it and we will also invalidate the query because it's just good practice to
+make sure that we have the most recent data to the server.
+
+The useQuery we have written yet is not in the proper format that react query can able to cancel those queries.
+
+React query expects a certain format in order to be able to cancel the query using a query cache command.
+
+In order to cancel from React Query, query function must:
+
+- return a promise with a cancel property that cancels query.
+
+cancel property will be a function that cancel the query.
+
+Summary
+To cancel a query, what react query needs is that the promise returned from the query function has
+cancel property
+Then when we ask react query to cancel a query, it will run the cancel function.
