@@ -170,3 +170,36 @@ In useMutation,
   TVariables -> mutate function variables type. Example mutate
 
   TContext -> Context type set in onMutate function for optimistic update rollback. Example:Appointment
+
+======
+Invalidating Query After Mutation
+======
+
+By default, when we send the data to server by calling mutate function.
+It will send the data to server, but in UI side it seems like nothing changed.
+That is bad user experience, so instead we want to refetch the data after the
+mutation because we are going to assume that the data is out of date.
+
+And we can alert react query that the data is out of date by invalidating the relevant query.
+
+==============
+invalidateQueries
+============
+The queryClient has an invalidate queries method and we are going to use that to invalidate
+the cache for our appointments data when we mutate the appointment by reserving it.
+So user doesn't have to refresh the page.
+
+invalidateQueries() takes on argument which is query key which this function will invalidate
+
+invalidateQueries effects:
+
+- markes query as stale
+- triggers refetch if query currently being rendered i.e if we are showing a component that
+  uses the query
+
+  # Flow
+
+  we call mutate then
+  in our mutation, we have onSuccessHandler that invalidates the relevant queries.
+  and that is going to trigger a refetch of the data so that the data updates for the
+  user without having to refresh the page.
